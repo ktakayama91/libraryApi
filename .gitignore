@@ -9,3 +9,9 @@
 # Maven
 log/
 target/
+
+# Swagger
+swagger/
+
+
+
