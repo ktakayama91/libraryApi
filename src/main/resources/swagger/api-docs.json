@@ -158,7 +158,7 @@
         }
       },
       "post": {
-        "summary": "Create an Boo",
+        "summary": "Create a Book",
         "operationId": "createBook",
         "tags": [
           "Books"
@@ -231,6 +231,45 @@
             "required": true,
             "description": "The id of the user to retrieve",
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expected response to a valid request",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific book",
+        "operationId": "updateBookById",
+        "tags": [
+          "Books"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to retrieve",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Book object",
+            "required": true,
+            "schema" : {
+              "$ref": "#/definitions/NewBook"
+            }
           }
         ],
         "responses": {

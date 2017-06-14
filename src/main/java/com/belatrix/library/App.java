@@ -6,6 +6,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
 import sun.applet.Main;
 
@@ -25,6 +26,7 @@ public class App {
         ResourceConfig config = new ResourceConfig();
         config.packages("com.belatrix.library");
         config.register(JacksonFeature.class);
+        config.property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, "true");
 
         ServletHolder apiServlet = new ServletHolder(new ServletContainer(config));
 
