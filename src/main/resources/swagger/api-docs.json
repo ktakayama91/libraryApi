@@ -2,13 +2,13 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Swagger Petstore",
+    "title": "Swagger Library API",
     "license": {
       "name": "MIT"
     }
   },
-  "host": "petstore.swagger.io",
-  "basePath": "/v1",
+  "host": "localhost:8080",
+  "basePath": "/api",
   "schemes": [
     "http"
   ],
@@ -19,12 +19,12 @@
     "application/json"
   ],
   "paths": {
-    "/pets": {
+    "/users": {
       "get": {
-        "summary": "List all pets",
-        "operationId": "listPets",
+        "summary": "List all users",
+        "operationId": "listUsers",
         "tags": [
-          "pets"
+          "Users"
         ],
         "parameters": [
           {
@@ -46,7 +46,7 @@
               }
             },
             "schema": {
-              "$ref": "#/definitions/Pets"
+              "$ref": "#/definitions/Users"
             }
           },
           "default": {
@@ -58,14 +58,25 @@
         }
       },
       "post": {
-        "summary": "Create a pet",
-        "operationId": "createPets",
+        "summary": "Create an User",
+        "operationId": "createUser",
         "tags": [
-          "pets"
+          "Users"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object",
+            "required": true,
+            "schema" : {
+              "$ref": "#/definitions/NewUser"
+            }
+          }
         ],
         "responses": {
           "201": {
-            "description": "Null response"
+            "description": "User created"
           },
           "default": {
             "description": "unexpected error",
@@ -76,19 +87,19 @@
         }
       }
     },
-    "/pets/{petId}": {
+    "/users/{userId}": {
       "get": {
-        "summary": "Info for a specific pet",
-        "operationId": "showPetById",
+        "summary": "Info for a specific user",
+        "operationId": "showUserById",
         "tags": [
-          "pets"
+          "Users"
         ],
         "parameters": [
           {
-            "name": "petId",
+            "name": "userId",
             "in": "path",
             "required": true,
-            "description": "The id of the pet to retrieve",
+            "description": "The id of the user to retrieve",
             "type": "string"
           }
         ],
@@ -96,46 +107,7 @@
           "200": {
             "description": "Expected response to a valid request",
             "schema": {
-              "$ref": "#/definitions/Pets"
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/api/users": {
-      "get": {
-        "summary": "List all users",
-        "operationId": "listUsers",
-        "tags": [
-          "api"
-        ],
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "How many items to return at one time (max 100)",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "An paged array of users",
-            "headers": {
-              "x-next": {
-                "type": "string",
-                "description": "A link to the next page of responses"
-              }
-            },
-            "schema": {
-              "$ref": "#/definitions/Pets"
+              "$ref": "#/definitions/User"
             }
           },
           "default": {
@@ -149,10 +121,14 @@
     }
   },
   "definitions": {
-    "Pet": {
+    "User": {
       "required": [
         "id",
-        "name"
+        "name",
+        "lastname",
+        "documentNumber",
+        "age",
+        "gender"
       ],
       "properties": {
         "id": {
@@ -162,15 +138,56 @@
         "name": {
           "type": "string"
         },
-        "tag": {
+        "lastname": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "NewUser": {
+      "required": [
+        "name",
+        "lastname",
+        "documentNumber",
+        "age",
+        "gender"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "documentNumber": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gender": {
           "type": "string"
         }
       }
     },
-    "Pets": {
+    "Users": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/Pet"
+        "$ref": "#/definitions/User"
       }
     },
     "Error": {
