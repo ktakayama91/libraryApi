@@ -10,8 +10,12 @@
 log/
 target/
 
-# Swagger
-swagger/
+# Swagger-subfolders
+**/swagger/**
+
+# Exclude Swagger specifics files
+!**/swagger/index.html
+!**/swagger/api-docs.json
 
 
 
