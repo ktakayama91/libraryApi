@@ -39,25 +39,44 @@ public class UserRest {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserById(@PathParam("id") Integer id){
-        try{
+    public Response getUserById(@PathParam("id") Integer id) {
+
+        try {
             return Response.ok().entity(userService.findUserById(id)).build();
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
-        }catch (Exception e){
+        } catch (Exception e) {
+            return Response.serverError().entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateUser(@PathParam("id") Integer id, User user) {
+
+        try {
+            userService.updateUser(user, id);
+            return Response.noContent().build();
+        } catch (NotFoundException nfe) {
+            return Response.status(Response.Status.NOT_FOUND).entity(nfe.getMessage()).build();
+        } catch (IllegalArgumentException iae) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(iae.getMessage()).build();
+        } catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteUser(@PathParam("id") Integer id){
-        try{
+    public Response deleteUser(@PathParam("id") Integer id) {
+
+        try {
             userService.deleteUser(id);
             return Response.noContent().build();
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
-        }catch (Exception e){
+        } catch (Exception e) {
             return Response.serverError().entity(e.getMessage()).build();
         }
     }

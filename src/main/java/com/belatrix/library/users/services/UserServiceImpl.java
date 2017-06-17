@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Integer id) {
+
         User existentUser = users.stream()
                 .filter(user -> user.getId().equals(id))
                 .filter(user -> user.getStatus().equals(ACTIVE_USER))
@@ -47,6 +48,19 @@ public class UserServiceImpl implements UserService {
         }
 
         return existentUser;
+    }
+
+    @Override
+    public void updateUser(User user, Integer id) {
+
+        // Find user
+        User currentUser = findUserById(id);
+
+        // Delete current user
+        deleteUser(currentUser.getId());
+
+        // Replace current user
+        users.add(user);
     }
 
     @Override
