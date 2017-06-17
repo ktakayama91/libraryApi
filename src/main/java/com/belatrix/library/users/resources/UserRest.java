@@ -1,9 +1,11 @@
 package com.belatrix.library.users.resources;
 
+import com.belatrix.library.maintenance.model.ErrorModel;
 import com.belatrix.library.users.model.User;
 import com.belatrix.library.users.services.UserService;
 import com.belatrix.library.users.services.UserServiceImpl;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -29,7 +31,7 @@ public class UserRest {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createUser(@Context UriInfo info, User user){
+    public Response createUser(@Context UriInfo info, @Valid User user){
 
         Integer id = userService.createUser(user);
         URI uri = info.getRequestUriBuilder().path("{id}").build(id);
@@ -44,24 +46,24 @@ public class UserRest {
         try {
             return Response.ok().entity(userService.findUserById(id)).build();
         } catch (NotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorModel(null, e.getMessage())).build();
         } catch (Exception e) {
-            return Response.serverError().entity(e.getMessage()).build();
+            return Response.serverError().entity(new ErrorModel(null, e.getMessage())).build();
         }
     }
 
     @PUT
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUser(@PathParam("id") Integer id, User user) {
+    public Response updateUser(@PathParam("id") Integer id, @Valid User user) {
 
         try {
             userService.updateUser(user, id);
             return Response.noContent().build();
         } catch (NotFoundException nfe) {
-            return Response.status(Response.Status.NOT_FOUND).entity(nfe.getMessage()).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorModel(null, nfe.getMessage())).build();
         } catch (IllegalArgumentException iae) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(iae.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorModel(null, iae.getMessage())).build();
         } catch (Exception e){
             return Response.serverError().entity(e.getMessage()).build();
         }
@@ -75,7 +77,7 @@ public class UserRest {
             userService.deleteUser(id);
             return Response.noContent().build();
         } catch (NotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorModel(null, e.getMessage())).build();
         } catch (Exception e) {
             return Response.serverError().entity(e.getMessage()).build();
         }

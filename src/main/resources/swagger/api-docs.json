@@ -38,7 +38,7 @@
         ],
         "responses": {
           "200": {
-            "description": "An paged array of pets",
+            "description": "Successful operation",
             "headers": {
               "x-next": {
                 "type": "string",
@@ -78,6 +78,9 @@
           "201": {
             "description": "User created"
           },
+          "400": {
+            "description": "Validation exception"
+          },
           "default": {
             "description": "unexpected error",
             "schema": {
@@ -105,9 +108,15 @@
         ],
         "responses": {
           "200": {
-            "description": "Expected response to a valid request",
+            "description": "Successful operation",
             "schema": {
               "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User not Found",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           },
           "default": {
@@ -146,6 +155,12 @@
           "200": {
             "description": "User replaced"
           },
+          "400": {
+            "description": "Validation exception"
+          },
+          "404": {
+            "description": "User not found"
+          },
           "default": {
             "description": "unexpected error",
             "schema": {
@@ -175,6 +190,9 @@
             "schema": {
               "$ref": "#/definitions/User"
             }
+          },
+          "404": {
+            "description": "User not found"
           },
           "default": {
             "description": "unexpected error",

@@ -1,5 +1,9 @@
 package com.belatrix.library.users.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  * @author Kei Takayama
  * Created on 6/13/17.
@@ -7,11 +11,26 @@ package com.belatrix.library.users.model;
 public class User {
 
     private Integer id;
+
+    @NotNull
+    @Size(max = 50, message = "The max length of name should be 50")
     private String name;
+
+    @NotNull
+    @Size(max = 50, message = "The max length of name should be 50")
     private String surname;
+
+    @NotNull
+    @Pattern(regexp = "([0-9]{8})")
     private String documentNumber;
+
+    @NotNull
     private Integer age;
+
+    @NotNull
+    @Pattern(regexp = "M|F")
     private String gender;
+
     private Integer status;
 
     public User() {
