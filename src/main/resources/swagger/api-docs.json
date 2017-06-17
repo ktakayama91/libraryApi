@@ -58,7 +58,7 @@
         }
       },
       "post": {
-        "summary": "Create an User",
+        "summary": "Create an user",
         "operationId": "createUser",
         "tags": [
           "Users"
@@ -153,6 +153,36 @@
             }
           }
         }
+      },
+      "delete": {
+        "summary": "Remove a specific user",
+        "operationId": "removeUserById",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to delete",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User deleted",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
       }
     },
     "/books": {
@@ -194,7 +224,7 @@
         }
       },
       "post": {
-        "summary": "Create a Book",
+        "summary": "Create a book",
         "operationId": "createBook",
         "tags": [
           "Books"
@@ -330,7 +360,7 @@
       "required": [
         "id",
         "name",
-        "lastname",
+        "surname",
         "documentNumber",
         "age",
         "gender"
@@ -343,7 +373,7 @@
         "name": {
           "type": "string"
         },
-        "lastname": {
+        "surname": {
           "type": "string"
         },
         "documentNumber": {
@@ -365,7 +395,7 @@
     "NewUser": {
       "required": [
         "name",
-        "lastname",
+        "surname",
         "documentNumber",
         "age",
         "gender"
@@ -374,7 +404,7 @@
         "name": {
           "type": "string"
         },
-        "lastname": {
+        "surname": {
           "type": "string"
         },
         "documentNumber": {

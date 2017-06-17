@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer createUser(User user){
-        users.add(new User(++ID, user.getName(), user.getLastname(), user.getDocumentNumber(), user.getAge(), user.getGender()));
+        users.add(new User(++ID, user.getName(), user.getSurname(), user.getDocumentNumber(), user.getAge(), user.getGender()));
         return ID;
     }
 

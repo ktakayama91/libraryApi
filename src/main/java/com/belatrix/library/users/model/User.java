@@ -8,7 +8,7 @@ public class User {
 
     private Integer id;
     private String name;
-    private String lastname;
+    private String surname;
     private String documentNumber;
     private Integer age;
     private String gender;
@@ -17,10 +17,10 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String name, String lastname, String documentNumber, Integer age, String gender) {
+    public User(Integer id, String name, String surname, String documentNumber, Integer age, String gender) {
         this.id = id;
         this.name = name;
-        this.lastname = lastname;
+        this.surname = surname;
         this.documentNumber = documentNumber;
         this.age = age;
         this.gender = gender;
@@ -43,12 +43,12 @@ public class User {
         this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getDocumentNumber() {
