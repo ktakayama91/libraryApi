@@ -11,4 +11,6 @@ import java.util.List;
 public interface LoanService {
 
     List<Loan> getLoans();
+
+    Integer createLoan(Loan loan);
 }

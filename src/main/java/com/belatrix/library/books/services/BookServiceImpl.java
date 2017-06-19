@@ -62,9 +62,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(Book b, Integer id) {
         Book existentBook = findBookById(id);
-        b.setId(id);
-        b.setStatus(existentBook.getStatus());
-        deleteBook(id);
+        deleteBook(existentBook.getId());
         books.add(b);
     }
 }

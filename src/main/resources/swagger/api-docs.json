@@ -352,7 +352,7 @@
             "description": "Book object",
             "required": true,
             "schema" : {
-              "$ref": "#/definitions/NewBook"
+              "$ref": "#/definitions/Book"
             }
           }
         ],
@@ -401,6 +401,35 @@
             "schema": {
               "$ref": "#/definitions/Loans"
             }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a loan",
+        "operationId": "createLoan",
+        "tags": [
+          "Book Loans"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Loan object",
+            "required": true,
+            "schema" : {
+              "$ref": "#/definitions/newLoan"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Loans created"
           },
           "default": {
             "description": "unexpected error",
@@ -550,10 +579,12 @@
           "format": "int64"
         },
         "userId": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "bookId": {
-          "type": "string"
+          "type": "integer",
+          "format": "int64"
         },
         "LoanDate": {
           "type": "string",
@@ -564,6 +595,22 @@
           "format": "date-time"
         },
         "status": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "newLoan": {
+      "required": [
+        "userId",
+        "bookId"
+      ],
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "bookId": {
           "type": "integer",
           "format": "int64"
         }

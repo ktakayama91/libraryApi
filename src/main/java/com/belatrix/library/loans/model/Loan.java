@@ -1,5 +1,6 @@
 package com.belatrix.library.loans.model;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
@@ -10,8 +11,10 @@ public class Loan {
 
     private Integer id;
 
+    @NotNull
     private Integer userId;
 
+    @NotNull
     private Integer bookId;
 
     private LocalDate loanDate;

@@ -3,6 +3,7 @@ package com.belatrix.library.books.resources;
 import com.belatrix.library.books.model.Book;
 import com.belatrix.library.books.services.BookService;
 import com.belatrix.library.books.services.BookServiceImpl;
+import com.belatrix.library.maintenance.model.ErrorModel;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -38,16 +39,16 @@ public class BookRest {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public Response updateBook(Book book, @PathParam("id") Integer id) {
+    public Response updateBook(@PathParam("id") Integer id, @Valid Book book) {
         try {
             bookService.updateBook(book, id);
             return Response.noContent().build();
         } catch (NotFoundException nfe) {
-            return Response.status(Response.Status.NOT_FOUND).entity(nfe.getMessage()).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorModel(null, nfe.getMessage())).build();
         } catch (IllegalArgumentException iae) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(iae.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorModel(null, iae.getMessage())).build();
         } catch (Exception e){
-            return Response.serverError().entity(e.getMessage()).build();
+            return Response.serverError().entity(new ErrorModel(null, e.getMessage())).build();
         }
     }
 
@@ -58,9 +59,9 @@ public class BookRest {
         try{
             return Response.ok().entity(bookService.findBookById(id)).build();
         }catch (NotFoundException e){
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorModel(null, e.getMessage())).build();
         }catch (Exception e){
-            return Response.serverError().entity(e.getMessage()).build();
+            return Response.serverError().entity(new ErrorModel(null, e.getMessage())).build();
         }
     }
 
@@ -71,9 +72,9 @@ public class BookRest {
             bookService.deleteBook(id);
             return Response.noContent().build();
         }catch (NotFoundException e){
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(new ErrorModel(null, e.getMessage())).build();
         }catch (Exception e){
-            return Response.serverError().entity(e.getMessage()).build();
+            return Response.serverError().entity(new ErrorModel(null, e.getMessage())).build();
         }
     }
 }
